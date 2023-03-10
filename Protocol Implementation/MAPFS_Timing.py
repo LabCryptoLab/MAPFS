@@ -74,7 +74,7 @@ assert sigmaW*P256.G==(Pub_rc_key+h_w*Y_w_pub_key), "The verification of the gat
 
 
 for i in range (1000):
-    computation=[]
+    computation={}
     gatewayComputationTime=0
     IoTComputationTime=0
     
@@ -249,12 +249,10 @@ for i in range (1000):
 
     GatewayEndTime=time.time()
     gatewayComputationTime = gatewayComputationTime+(GatewayEndTime-GatewayStartTime)
+    
+    computation["IoT Computation time"] = IoTComputationTime
+    computation["Gateway Computation time"] = gatewayComputationTime
 
-    IoTComputation={"IoT Computation time": IoTComputationTime}
-    gatewayComputation={"Gateway Computation time": gatewayComputationTime}
-
-    computation.append(IoTComputation)
-    computation.append(gatewayComputation)
     data.append(computation)
 
 
@@ -263,4 +261,4 @@ with open('ProtocolComputationTime.csv','w') as json_file:
     json_file.write("IoT Computation time"+","+"Gateway Computation time"+"\n")
 
     for each in data:
-        json_file.write(str(each[0]["IoT Computation time"]) + "," + str(each[1]["Gateway Computation time"]) + "\n")
+        json_file.write(str(each["IoT Computation time"]) + "," + str(each["Gateway Computation time"]) + "\n")
