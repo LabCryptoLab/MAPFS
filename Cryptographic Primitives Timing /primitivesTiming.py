@@ -35,7 +35,7 @@ data=[]
 message = b'rfvsjbnbkf nikvfabnbrnkbnbknv NBRNTENBBFKEDANKENG KNKFDANKGRNKBGKNBFKTFNBFR  KFBDNKBNFRK BFD BLKBNRFNRF KFNBKEG DNBNRKORMVFS BKRNKRNGRNNB;KNBRNRF KBFRNRJFEM  KFRNBFNKNG NVFRL;SBFBJGERINHKTNBNBITNERKNAKNKVFNKNRAFNKNGRKF;FEKPKEGR  GRGKFM FV;LRMGR;MV,MV;LGRMLGRNV ,;FKDGRMV;MSK NGFAKBRKB FKVNBDKFGTNFVM CXFKNRKADN CNKGRNFD ,VCSNFRKK DDSKTENFKZVFDNVD.NGTLKNMGFD  VFGRAMDCMRJNDNMVSC  MDCSJNF DCDCNSL.N.M NDDDDDDDNCDCJMD,C  ,M ,M ,M ,M ,M ,M ,M ,M ,MDSCJN MDSV CM J DCCMDANFKJN VDNDCKLNVDS DV SJCBJBDSJCBBDJJGRBJBGRJKBKJBGERWBJKJVDBRJVFBLCBVECBFRWVC U V  DCBSKDJEWNFRWBJFRBVFDFENCXBKSANDMXNLKJNEDSAFHFUEDWHGUGFBVBVBVBVBVBVLKENFDLKLKLKLK.NDSA MNSLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKDC S,M,M,M,M,M,M,MJEWEWEWEWEWEWEWEWEWEWEW,Msaddddrehjjhq.JE.JE.JE.JE.JE.JE.JE.JE.JE.JEaf,nnnnnnn cxzzzzzzbewjkewrioooipoiiiiiiiiipcdklbdjcbsnccds<M,sDCAnDCSnmdb.vdjj dcms.fedn dcnjdcskbjkfbedjbfrjbdjvfbjdcbcbdckjbkjdcbjdcdcjdkjcbjdcbbcdckjbjbdjjbdcjkdsx m mxX<Mmnc.,mcdcmnmdcm,m<MNCXnC<,mnNN<,m<MNXZnxnNnmXnNXnnnxnxnnxmnnxxnbnXNBnxXkjdsbjkeds ' # <- 16 bytes
 
 for i in range (1000):
-     computation=[]
+     computation={}
      #The Hash function
      hashStartTime=time.time()
      h = hashlib.sha256()
@@ -43,7 +43,7 @@ for i in range (1000):
      digest=h.hexdigest()
      hashEndTime=time.time()
      hashExecutionTime=hashEndTime-hashStartTime
-     HashComputation = {"Hash time": hashExecutionTime}
+     computation["Hash time"] = hashExecutionTime
      
      # The HMAC function (SHA256)
      secret = b'Swordfish'
@@ -52,13 +52,13 @@ for i in range (1000):
      digestHMAC=h.hexdigest()
      HMACEndTime=time.time()
      HMACExecutionTime=HMACEndTime-HMACStartTime
-     HMACcomputation = {"HMAC Execution time": HMACExecutionTime}
+     computation["HMAC Execution time"] =  HMACExecutionTime
      
      RandomStartTime=time.time()
      random = os.urandom(1024)
      RandomEndTime=time.time()
      RandomExecutionTime=RandomEndTime-RandomStartTime
-     RandomComputation = {"Random Execution time": RandomExecutionTime}
+     computation["Random Execution time"] = RandomExecutionTime
      
      key = b'MyKeyCryptoLabqwertyasdfasdfzxcv'
      iv = Random.new().read(AES.block_size)
@@ -67,7 +67,7 @@ for i in range (1000):
      encd = aes.encrypt(message)
      AESencryptionEndTime=time.time()
      AESEncryptionTime=AESencryptionEndTime-AESencryptionStartTime
-     AEScomputation = {"AES Encryption time": AESEncryptionTime}
+     computation["AES Encryption time"] = AESEncryptionTime
      
          
      # The bilinear pairing
@@ -77,7 +77,7 @@ for i in range (1000):
      result1 = G.pair(g1, 6*g2)
      bilinearPairingEndTime=time.time()    
      bilinearPairingTime=bilinearPairingEndTime-bilinearPairingStartTime
-     Bilinearcomputation = {"Bilinear time": bilinearPairingTime}
+     computation["Bilinear time"] =  bilinearPairingTime
      
      # The exponentiation operation
      a = 2988348162058574136915891421498819466320163312926952423791023078876139
@@ -87,7 +87,7 @@ for i in range (1000):
      pow(a, b, m)    
      ExponentialEndTime=time.time()    
      ExponentialTime=ExponentialEndTime-ExponentialStartTime
-     Exponentiationcomputation = {"Exponential Time": ExponentialTime}
+     computation["Exponential Time"] =  ExponentialTime
      
      # The elliptic curve operations
      xs = 0xde2444bebc8d36e682edd27e0f271508617519b3221a8fa0b77cab3989da97c9
@@ -102,7 +102,7 @@ for i in range (1000):
      S + T
      ECCadditionEndTime=time.time() 
      ECCTadditionTime=ECCadditionEndTime-ECCadditionStartTime
-     ECCadditioncomputation = {"ECC Addition Time": ECCTadditionTime}
+     computation["ECC Addition Time"] = ECCTadditionTime
      
      d = 0xc51f
      ###########
@@ -111,16 +111,7 @@ for i in range (1000):
      R = d * S  
      ECCscalarMultiplicationEndTime=time.time()    
      EECCscalarMultiplicationTime=ECCscalarMultiplicationEndTime-ECCscalarMultiplicationStartTime
-     ECCscalarcomputation = {"ECC Scalar Multiplication Time": EECCscalarMultiplicationTime}
-
-     computation.append(HashComputation)
-     computation.append(HMACcomputation)
-     computation.append(RandomComputation)
-     computation.append(AEScomputation)
-     computation.append(Bilinearcomputation)
-     computation.append(Exponentiationcomputation)
-     computation.append(ECCadditioncomputation)
-     computation.append(ECCscalarcomputation)
+     computation["ECC Scalar Multiplication Time"] = EECCscalarMultiplicationTime
      data.append(computation)    
 
 # Writing to JSON file
@@ -128,5 +119,5 @@ with open('PrimitiveComputationTime.csv', 'w') as json_file:
     json_file.write("Hash time"+","+"HMAC Execution time" +","+"Random Execution time"+","+"AES Encryption time"+","+
                         "Bilinear time"+","+"Exponential Time" +","+"ECC Addition Time"+","+"ECC Scalar Multiplication Time"+"\n")
     for each in data:
-        json_file.write(str(each[0]["Hash time"])+","+str(each[1]["HMAC Execution time"]) +","+str(each[2]["Random Execution time"])+","+str(each[3]["AES Encryption time"])+","+
-                        str(each[4]["Bilinear time"])+","+str(each[5]["Exponential Time"]) +","+str(each[6]["ECC Addition Time"])+","+str(each[7]["ECC Scalar Multiplication Time"])+"\n")
+        json_file.write(str(each["Hash time"])+","+str(each["HMAC Execution time"]) +","+str(each["Random Execution time"])+","+str(each["AES Encryption time"])+","+
+                        str(each["Bilinear time"])+","+str(each["Exponential Time"]) +","+str(each["ECC Addition Time"])+","+str(each["ECC Scalar Multiplication Time"])+"\n")
