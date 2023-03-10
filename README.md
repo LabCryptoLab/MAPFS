@@ -1,7 +1,7 @@
 # MAPFS
 This is a python implementation of our protocol MAPFS (Mutual Authentication Privacy-preserving protocol with Forward Secrecy) for the IoT-edge-cloud paradigm. Our implementation consists of three parts.
 ## The Cryptographic Primitives Timing 
-The timing measuring of the used cryptographic primitives in our protocal such as SHA-256 hash function, HMAC function, AES-CBC mode encryption, bilinear pairing, EC scalar multiplication and EC point addition.
+The time measuring of the used cryptographic primitives in our protocal such as SHA-256 hash function, HMAC function, AES-CBC mode encryption, bilinear pairing, EC scalar multiplication and EC point addition.
 ## The Protocol Implementation
 The implementation of the protocol where the registration token for the IoT device and the IoT gateway are generated to simulate the registration phase. Afterwards, the protocol is executed between the IoT device and the IoT gateway where each entity exchanges its authentication token and authenticates the other entity. This implementation shows the completeness of our proposed protocol and proves it effectiveness while running on a resource-constrained device such as the Raspberry Pi 4. 
 ## The Socket Programming
