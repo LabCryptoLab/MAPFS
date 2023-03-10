@@ -50,8 +50,6 @@ P_IoT_key=Point(P_IoT_key_X, P_IoT_key_Y, curve=curve.P256)
 ###### The IoT computation for the Hello Message  #######
 #########################################################
 
-IoTStartTime=time.time()
-
 rng_1 = int.from_bytes(os.urandom(1024),'big')%P256.q
 rng_2 = int.from_bytes(os.urandom(1024),'big')%P256.q
 rng_3 = int.from_bytes(os.urandom(1024),'big')%P256.q
@@ -79,7 +77,6 @@ def client_program():
     # Step 1: Send hello
     message = hello()
     client_socket.send(pickle.dumps(message))  # send message
-    IoTEndTime=time.time()
     print('IoT device: step 1: sent to gateway: ' + str(message))
     
     #Step 2: Receive the gateway authentication token # data contains: W, X_w_pub_key, Y_w_pub_key, sigmaZ
